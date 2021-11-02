@@ -25,7 +25,6 @@ int main() {
   eternals.put("Ikaris", 6250);
   eternals.print();
   
-  eternals.print();
   // cout <<  eternals.contains_key("Lalo") << endl;
   
   // eternals.clear();
