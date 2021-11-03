@@ -77,4 +77,12 @@ class Hashtable{
         return true;
       }
 
+      void put_all(const Hashtable<K,T>& other){
+        for(int i = 0; i < size; i++){
+          if(other.tabla[i].key != tabla[i].key) tabla[i].key = other.tabla[i].key;
+          tabla[i].value = other.tabla[i].value;
+          counter++;
+        }
+      }
+
 };

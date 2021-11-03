@@ -25,7 +25,11 @@ int main() {
   eternals.put("Thena", 7000);
   eternals.put("Kingo", 6500);
   eternals.put("Ikaris", 6250);
-  eternals.print();
+  // eternals.print();
+
+  Hashtable<string,int> avengers(10);
+  avengers.put_all(eternals);
+  avengers.print();
   // eternals.print();
   
   // cout <<  eternals.contains_key("Th") << endl;
