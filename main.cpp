@@ -29,15 +29,23 @@ int main() {
 
   Hashtable<string,int> avengers(10);
   avengers.put_all(eternals);
-  avengers.print();
+  // avengers.print();
   // eternals.print();
+  // eternals.remove("Thena");
   
   // cout <<  eternals.contains_key("Th") << endl;
 
   // cout << eternals.get_or_default("Thena") << endl;
 
   // eternals.clear();
-  // eternals.print();
+  eternals.print();
+  cout << "================" << endl;
+  avengers.print();
 
+  cout << "is_empty: " << eternals.is_empty() << endl;
+  cout << "size: "<< eternals.the_size() << endl;
+
+  if(eternals == avengers)cout << "same! " << endl;
+  else cout << "not the same" << endl;
 
 } 

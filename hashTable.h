@@ -16,8 +16,8 @@ class Hashtable{
     private:
         int size;
         HashPair<K, T> * tabla;
+        HashPair<K, T> null_hash;
         bool empty = true;
-        int counter = 0;
 
         int fh(K key){
             hash<K> khash;
@@ -28,8 +28,8 @@ class Hashtable{
       Hashtable(int size = 20){
         this->size = size;
         tabla = new HashPair<K,T>[size];  // hashpair array creation
-        for(int i = 0; i < size; i++)
-          tabla[i] = HashPair<K,T>();
+        for(int i = 0; i < size; i++) tabla[i] = HashPair<K,T>();
+        null_hash = tabla[0];
       }
       ~Hashtable(){
         delete tabla;
@@ -41,7 +41,6 @@ class Hashtable{
          int posicion = fh(key);
          this ->empty = false; 
          tabla[posicion] = HashPair<K,T>(key, value);
-         counter++;
          return 1;
       }
 
@@ -57,8 +56,7 @@ class Hashtable{
       }
       void clear(){
         for(int i = 0; i < size; i++){
-          tabla[i].key = tabla[i].value = NULL;
-          counter --;
+          tabla[i] = null_hash;
         }
 
       }
@@ -72,17 +70,35 @@ class Hashtable{
         return def;
       }
 
+
       bool is_empty(){
-        if(counter>0) return false;
-        return true;
+        for(int i = 0; i < size; i++) if(tabla[i].value != null_hash.value) return false;
+        return true; 
       }
 
       void put_all(const Hashtable<K,T>& other){
         for(int i = 0; i < size; i++){
           if(other.tabla[i].key != tabla[i].key) tabla[i].key = other.tabla[i].key;
           tabla[i].value = other.tabla[i].value;
-          counter++;
         }
+      }
+
+      bool remove(K key){
+        if(contains_key(key))tabla[fh(key)] = null_hash;
+        else return false;
+        return true;
+      }
+
+      int the_size(){
+        int counter = 0;
+        for(int i = 0; i < size; i++)if(tabla[i].value != null_hash.value) counter++;
+        return counter;
+      }
+
+      bool operator == (const Hashtable<K, T> & other) const{
+        if(size != other.size) return false;
+        for(int i = 0; i < size; i++) if(tabla[i].value != other.tabla[i].value && tabla[i].key != other.tabla[i].key) return false;
+        return true;
       }
 
 };
